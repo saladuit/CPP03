@@ -12,24 +12,16 @@
 
 #include <ClapTrap.hpp>
 
-ClapTrap::ClapTrap()
-{
-    std::cout << "Default constructor called" << std::endl;
+ClapTrap::ClapTrap() { std::cout << "Default constructor called" << std::endl; }
+
+ClapTrap::ClapTrap(const ClapTrap &f) {
+  (void)f;
+  std::cout << "Copy constructor called" << std::endl;
 }
 
-ClapTrap::ClapTrap(const ClapTrap& f)
-{
-    (void)f;
-    std::cout << "Copy constructor called" << std::endl;
+ClapTrap &ClapTrap::operator=(const ClapTrap &f) {
+  (void)f;
+  std::cout << "Copy assignment operator called" << std::endl;
+  return *this;
 }
-
-ClapTrap& ClapTrap::operator=(const ClapTrap& f)
-{
-    (void)f;
-    std::cout << "Copy assignment operator called" << std::endl;
-    return *this;
-}
-ClapTrap::~ClapTrap()
-{
-    std::cout << "Destructor called" << std::endl;
-}
+ClapTrap::~ClapTrap() { std::cout << "Destructor called" << std::endl; }
