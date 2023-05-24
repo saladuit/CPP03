@@ -10,10 +10,8 @@
 #                                                                              #
 # **************************************************************************** #
 
-# include makerc/common.mk
-include makerc/config.mk
-
-NAME			:=fixed.out
+include makerc/definitions.mk
+include makerc/options.mk
 
 # **************************************************************************** #
 
@@ -22,16 +20,12 @@ all: $(NAME)
 
 $(NAME): SHELL :=/bin/bash
 
-$(NAME): $(OBJS) $(MAIN_OBJ)
+$(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $^ $(INCLUDE_FLAGS) -o $(NAME)
-	@printf "$(GREEN_FG)$(NAME)$(RESET_COLOR) created\n"
 
-$(MAIN_OBJ) $(OBJS): $(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
+$(OBJS): $(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) $(INCLUDE_FLAGS) -c $< -o $@
-
-$(LIBFT):
-	@$(MAKE) -C $(LIBFT_DIR)
 
 clean:
 	@$(RM) $(BUILD_DIR)
@@ -52,13 +46,10 @@ rebug: fclean debug
 .PHONY: rebug
 
 fsan:
-	@$(MAKE) FSAN=1
+	@$(MAKE) DEBUG=1 FSAN=1
 .PHONY: fsan
 
 resan: fclean fsan
 .PHONY: resan
-
-bonus: all
-.PHONY: bonus
 
 # **************************************************************************** #

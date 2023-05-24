@@ -1,33 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                    .--.  _                 */
-/*   Fixed.hpp                                       |o_o || |                */
+/*   ClapTrap.hpp                                    |o_o || |                */
 /*                                                   |:_/ || |_ _   ___  __   */
 /*   By: safoh <safoh@student.codam.nl>             //   \ \ __| | | \ \/ /   */
 /*                                                 (|     | )|_| |_| |>  <    */
-/*   Created: 2022/09/26 08:30:27 by safoh        /'\_   _/`\__|\__,_/_/\_\   */
-/*   Updated: 2022/10/27 15:22:40 by safoh        \___)=(___/                 */
+/*   Created: 2023/05/24 14:47:32 by safoh        /'\_   _/`\__|\__,_/_/\_\   */
+/*   Updated: 2023/05/24 14:47:32 by safoh        \___)=(___/                 */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FIXED_HPP
-#define FIXED_HPP
+
+#ifndef CLAP_TRAP_HPP
+#define CLAP_TRAP_HPP
 
 #include <iostream>
 
-class Fixed {
+class ClapTrap {
 
 public:
-    Fixed();
-    Fixed(const Fixed& f);
-    Fixed& operator=(const Fixed& f);
-    ~Fixed();
-    int getRawBits(void) const;
-    void setRawBits(int const raw);
-
-private:
-    int _fixedPoint;
-    static const int _fractionalBits = 8;
+    ClapTrap();
+    ClapTrap(const ClapTrap& f);
+    ClapTrap& operator=(const ClapTrap& f);
+    ~ClapTrap();
 };
 
 #endif

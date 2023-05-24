@@ -1,48 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                    .--.  _                 */
-/*   Fixed.cpp                                       |o_o || |                */
+/*   ClapTrap.cpp                                    |o_o || |                */
 /*                                                   |:_/ || |_ _   ___  __   */
 /*   By: safoh <safoh@student.codam.nl>             //   \ \ __| | | \ \/ /   */
 /*                                                 (|     | )|_| |_| |>  <    */
-/*   Created: 2022/09/27 15:19:50 by safoh        /'\_   _/`\__|\__,_/_/\_\   */
-/*   Updated: 2022/10/27 15:34:13 by safoh        \___)=(___/                 */
+/*   Created: 2023/05/24 14:47:37 by safoh        /'\_   _/`\__|\__,_/_/\_\   */
+/*   Updated: 2023/05/24 14:47:37 by safoh        \___)=(___/                 */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <Fixed.hpp>
+#include <ClapTrap.hpp>
 
-Fixed::Fixed()
-    : _fixedPoint(0)
+ClapTrap::ClapTrap()
 {
     std::cout << "Default constructor called" << std::endl;
 }
 
-Fixed::Fixed(const Fixed& f)
-    : _fixedPoint(f.getRawBits())
+ClapTrap::ClapTrap(const ClapTrap& f)
 {
+    (void)f;
     std::cout << "Copy constructor called" << std::endl;
 }
 
-Fixed& Fixed::operator=(const Fixed& f)
+ClapTrap& ClapTrap::operator=(const ClapTrap& f)
 {
-    if (this != &f)
-        _fixedPoint = f.getRawBits();
+    (void)f;
     std::cout << "Copy assignment operator called" << std::endl;
     return *this;
 }
-Fixed::~Fixed()
+ClapTrap::~ClapTrap()
 {
     std::cout << "Destructor called" << std::endl;
-}
-
-int Fixed::getRawBits(void) const
-{
-    std::cout << "getRawBits member function called" << std::endl;
-    return (_fixedPoint);
-}
-void Fixed::setRawBits(int const raw)
-{
-    std::cout << "setRawBits member function called" << std::endl;
-    _fixedPoint = raw;
 }
