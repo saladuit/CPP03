@@ -75,15 +75,29 @@ void ClapTrap::log(std::string message) const
 void ClapTrap::log_no_energy(std::string action) const
 {
 
-	std::cout << BGRED WHT "No energy points left to " << action << NC
-			  << std::endl;
+	std::cout << CYN << this->_name << " has no energy points left to "
+			  << action << NC << std::endl;
 }
+
+void ClapTrap::log_is_dead(std::string action) const
+{
+
+	std::cout << RED << this->_name << " is dead." << std::endl
+			  << action << "ing is not possible... " << NC << std::endl;
+}
+
+ClapTrap::ClapTrap(const std::string name)
+	: _name(name), _hit_points(10), _energy_points(10), _attack_damage(0)
+{
+	this->log("ClapTrap called Copy constructor");
+}
+
 /* **************************Orthodox_Canonical_Form************************* */
 
 ClapTrap::ClapTrap()
 	: _name("CL4P-TP"), _hit_points(10), _energy_points(10), _attack_damage(0)
 {
-	this->log("ClapTrap called Default constructor");
+	this->log("ClapTrap called default constructor");
 }
 
 ClapTrap::ClapTrap(const ClapTrap &rhs)
@@ -97,6 +111,7 @@ ClapTrap &ClapTrap::operator=(const ClapTrap &rhs)
 {
 	if (this != &rhs)
 	{
+		this->_name = rhs._name;
 		this->_hit_points = rhs._hit_points;
 		this->_energy_points = rhs._energy_points;
 		this->log("Copy assignment operator called");
