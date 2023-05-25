@@ -14,7 +14,10 @@
 
 int main(void)
 {
-    ClapTrap clap_trap;
+		ClapTrap clap_trap;
 
-    return (0);
+		clap_trap.attack("Martijn");
+		clap_trap.takeDamage(5);
+		clap_trap.takeDamage(10);
+		return (0);
 }
