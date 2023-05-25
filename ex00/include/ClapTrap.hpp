@@ -29,12 +29,13 @@ class ClapTrap
 	void beRepaired(unsigned int amount);
 
   private:
-	const std::string _name;
+	std::string _name;
 	unsigned int _hit_points;
-	int _energy_points;
+	unsigned int _energy_points;
 	const int _attack_damage;
 	void log(std::string message) const;
 	void log_no_energy(std::string action) const;
+	void log_is_dead(std::string action) const;
 };
 
 #endif
