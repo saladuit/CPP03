@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME			:=ClapTrap.out
+NAME			:=ScavTrap.out
 
 #	Compiler
 CC							:=c++
@@ -29,6 +29,7 @@ BUILD_DIR		:=build
 # Preprocessing files
 SRCS			:=$(wildcard $(SRC_DIR)/*.cpp)
 HEADERS			:=$(INCLUDE_DIR)/ClapTrap.hpp
+HEADERS			:=$(INCLUDE_DIR)/ScavTrap.hpp
 
 # 	Objects
 OBJS			:=$(patsubst $(SRC_DIR)/%.cpp, $(BUILD_DIR)/%.o, $(SRCS))

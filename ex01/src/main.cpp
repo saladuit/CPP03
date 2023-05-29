@@ -10,39 +10,27 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ScavTrap.hpp"
 #include <ClapTrap.hpp>
 #include <Color.hpp>
 
 void test_default_constructor(void)
 {
-	ClapTrap clap_trap;
+	ScavTrap scav_trap;
 
-	clap_trap.attack("Martijn");
-	clap_trap.attack("Victor");
-	clap_trap.attack("lucien");
-	clap_trap.takeDamage(5);
-	clap_trap.beRepaired(1);
-	clap_trap.beRepaired(10);
-	clap_trap.attack("Victor");
-	clap_trap.attack("Victor");
-	clap_trap.attack("Victor");
-	clap_trap.attack("Victor");
-	clap_trap.attack("Victor");
-	clap_trap.beRepaired(2); // Can be switched out for attack
-	clap_trap.takeDamage(5);
-	clap_trap.takeDamage(10);
-	// show that it is dead
-	clap_trap.takeDamage(10);
-	clap_trap.attack("Show that it is dead");
-	clap_trap.beRepaired(10);
+	scav_trap.attack("Mees");
+	scav_trap.guardGate();
+	scav_trap.beRepaired(1);
+	scav_trap.takeDamage(50);
+	scav_trap.takeDamage(50);
 }
 
 void test_constructors(void)
 {
-	ClapTrap saladin("Saladin");
-	ClapTrap saladin_copy(saladin);
-	ClapTrap default_claptrap;
-	default_claptrap = saladin;
+	ScavTrap saladin("Saladin");
+	ScavTrap saladin_copy(saladin);
+	ScavTrap default_scavtrap;
+	default_scavtrap = saladin;
 }
 
 int main(void)

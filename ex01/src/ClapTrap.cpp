@@ -43,8 +43,11 @@ void ClapTrap::attack(const std::string &target)
 
 void ClapTrap::takeDamage(unsigned int amount)
 {
-	if (!canPerformAction(""))
+	if (_hit_points == 0)
+	{
+		logMessage(RED, _name + " has already died!");
 		return;
+	}
 	_hit_points = (_hit_points < amount) ? 0 : _hit_points - amount;
 	logMessage(YEL, _name + " took " + std::to_string(amount) +
 						" points of damage !\nNew health_total: " +
@@ -60,8 +63,9 @@ void ClapTrap::beRepaired(unsigned int amount)
 	if (!canPerformAction("repair"))
 		return;
 	_energy_points--;
-	unsigned int actual_repair_amount =
-		(_hit_points + amount > 10) ? 10 - _hit_points : amount;
+	unsigned int actual_repair_amount = (_hit_points + amount > _max_hit_points)
+											? _max_hit_points - _hit_points
+											: amount;
 	_hit_points += actual_repair_amount;
 	logMessage(
 		GRN,
@@ -88,6 +92,11 @@ void ClapTrap::log_is_dead(std::string action) const
 	logMessage(RED, _name + " is dead.\n" + action + "ing is not possible...");
 }
 
+void ClapTrap::log_is_deconstructed(void) const
+{
+	logMessage(BRED, "Destructor called by " + _name);
+}
+
 void ClapTrap::log_construction(std::string message) const
 {
 	logMessage(GRN, message + "\nName: " + _name +
@@ -96,23 +105,36 @@ void ClapTrap::log_construction(std::string message) const
 						"\nAttack damage: " + std::to_string(_attack_damage));
 }
 
-/* **************************Orthodox_Canonical_Form************************* */
-
-ClapTrap::ClapTrap()
-	: _name("CL4P-TP"), _hit_points(10), _energy_points(10), _attack_damage(0)
-{
-	log_construction("ClapTrap called default constructor");
-}
+/* *******************************Other_Constructors************************* */
 
 ClapTrap::ClapTrap(const std::string name)
-	: _name(name), _hit_points(10), _energy_points(10), _attack_damage(0)
+	: _name(name), _hit_points(10), _energy_points(10), _attack_damage(0),
+	  _max_hit_points(_hit_points)
 {
 	log_construction("ClapTrap called Copy constructor");
 }
 
+ClapTrap::ClapTrap(const std::string &name, unsigned int hit_points,
+				   unsigned int energy_points, const int attack_damage)
+	: _name(name), _hit_points(hit_points), _energy_points(energy_points),
+	  _attack_damage(attack_damage), _max_hit_points(_hit_points)
+{
+	log_construction("ClapTrap called parameterized constructor");
+}
+
+/* **************************Orthodox_Canonical_Form************************* */
+
+ClapTrap::ClapTrap()
+	: _name("CL4P-TP"), _hit_points(10), _energy_points(10), _attack_damage(0),
+	  _max_hit_points(_hit_points)
+{
+	log_construction("ClapTrap called default constructor");
+}
+
 ClapTrap::ClapTrap(const ClapTrap &rhs)
 	: _name(rhs._name), _hit_points(rhs._hit_points),
-	  _energy_points(rhs._energy_points), _attack_damage(rhs._attack_damage)
+	  _energy_points(rhs._energy_points), _attack_damage(rhs._attack_damage),
+	  _max_hit_points(_hit_points)
 {
 	log_construction("ClapTrap called Copy constructor");
 }
@@ -131,5 +153,5 @@ ClapTrap &ClapTrap::operator=(const ClapTrap &rhs)
 
 ClapTrap::~ClapTrap()
 {
-	logMessage(BRED, "Destructor called by " + _name);
+	log_is_deconstructed();
 }
