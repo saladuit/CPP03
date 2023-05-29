@@ -15,81 +15,85 @@
 
 /* **************************Public_member_functions************************* */
 
+bool ClapTrap::canPerformAction(const std::string &action) const
+{
+	if (_hit_points == 0)
+	{
+		log_is_dead(action);
+		return (false);
+	}
+	if (_energy_points == 0)
+	{
+		log_no_energy(action);
+		return (false);
+	}
+	return (true);
+}
+
 void ClapTrap::attack(const std::string &target)
 {
-	if (this->_hit_points == 0)
-		return this->log_is_dead("attack");
-	if (this->_energy_points == 0)
-		return this->log_no_energy("attack");
-	this->_energy_points--;
-	std::cout << MAG << this->_name << " attacks " << target << " causing "
-			  << this->_attack_damage << " points of damage !" << std::endl
-			  << "New Energy points: " << this->_energy_points << NC
-			  << std::endl;
+	if (!canPerformAction("attack"))
+		return;
+	_energy_points--;
+	logMessage(MAG, _name + " attacks " + target + " causing " +
+						std::to_string(_attack_damage) +
+						" points of damage !\nNew Energy points: " +
+						std::to_string(_energy_points));
 }
 
 void ClapTrap::takeDamage(unsigned int amount)
 {
-	if (this->_hit_points == 0)
-	{
-		std::cout << YEL << this->_name << " has already died " << std::endl;
+	if (!canPerformAction(""))
 		return;
+	_hit_points = (_hit_points < amount) ? 0 : _hit_points - amount;
+	logMessage(YEL, _name + " took " + std::to_string(amount) +
+						" points of damage !\nNew health_total: " +
+						std::to_string(_hit_points));
+	if (_hit_points == 0)
+	{
+		logMessage(RED, _name + " has died ");
 	}
-	this->_hit_points = (_hit_points < amount) ? 0 : _hit_points - amount;
-	std::cout << YEL << this->_name << " took " << amount
-			  << " points of damage !" << std::endl
-			  << "New health_total: " << _hit_points << NC << std::endl;
-	if (this->_hit_points == 0)
-		std::cout << RED << this->_name << " has died " << std::endl;
 }
 
 void ClapTrap::beRepaired(unsigned int amount)
 {
-	unsigned int actual_repair_amount;
-	if (this->_hit_points == 0)
-		return this->log_is_dead("repair");
-	if (this->_energy_points == 0)
-		return this->log_no_energy("repair");
-	this->_energy_points--;
-	actual_repair_amount =
-		(this->_hit_points + amount > 10) ? 10 - this->_hit_points : amount;
-	this->_hit_points += actual_repair_amount;
-	std::cout << GRN << this->_name << " repaired itself for "
-			  << actual_repair_amount << std::endl
-			  << "New health_total: " << _hit_points << std::endl
-			  << "Remaining Energy points: " << this->_energy_points << NC
-			  << std::endl;
+	if (!canPerformAction("repair"))
+		return;
+	_energy_points--;
+	unsigned int actual_repair_amount =
+		(_hit_points + amount > 10) ? 10 - _hit_points : amount;
+	_hit_points += actual_repair_amount;
+	logMessage(
+		GRN,
+		_name + " repaired itself for " + std::to_string(actual_repair_amount) +
+			"\nNew health_total: " + std::to_string(_hit_points) +
+			"\nRemaining Energy points: " + std::to_string(_energy_points));
 }
 
 /* **************************Loggers***************************************** */
 
-void ClapTrap::log(std::string message) const
+void ClapTrap::logMessage(const std::string &color,
+						  const std::string &message) const
 {
-	std::cout << BGRN << message << std::endl
-			  << GRN "Name: " << this->_name << std::endl
-			  << "Hit points: " << this->_hit_points << std::endl
-			  << "Energy points: " << this->_energy_points << std::endl
-			  << "Attack damage: " << this->_attack_damage << NC << std::endl;
+	std::cout << color << message << NC << std::endl;
 }
 
 void ClapTrap::log_no_energy(std::string action) const
 {
-
-	std::cout << CYN << this->_name << " has no energy points left to "
-			  << action << NC << std::endl;
+	logMessage(CYN, _name + " has no energy points left to " + action);
 }
 
 void ClapTrap::log_is_dead(std::string action) const
 {
-
-	std::cout << RED << this->_name << " is dead." << std::endl
-			  << action << "ing is not possible... " << NC << std::endl;
+	logMessage(RED, _name + " is dead.\n" + action + "ing is not possible...");
 }
 
-ClapTrap::ClapTrap(const std::string name)
-	: _name(name), _hit_points(10), _energy_points(10), _attack_damage(0)
+void ClapTrap::log_construction(std::string message) const
 {
-	this->log("ClapTrap called Copy constructor");
+	logMessage(GRN, message + "\nName: " + _name +
+						"\nHit points: " + std::to_string(_hit_points) +
+						"\nEnergy points: " + std::to_string(_energy_points) +
+						"\nAttack damage: " + std::to_string(_attack_damage));
 }
 
 /* **************************Orthodox_Canonical_Form************************* */
@@ -97,29 +101,35 @@ ClapTrap::ClapTrap(const std::string name)
 ClapTrap::ClapTrap()
 	: _name("CL4P-TP"), _hit_points(10), _energy_points(10), _attack_damage(0)
 {
-	this->log("ClapTrap called default constructor");
+	log_construction("ClapTrap called default constructor");
+}
+
+ClapTrap::ClapTrap(const std::string name)
+	: _name(name), _hit_points(10), _energy_points(10), _attack_damage(0)
+{
+	log_construction("ClapTrap called Copy constructor");
 }
 
 ClapTrap::ClapTrap(const ClapTrap &rhs)
 	: _name(rhs._name), _hit_points(rhs._hit_points),
 	  _energy_points(rhs._energy_points), _attack_damage(rhs._attack_damage)
 {
-	this->log("ClapTrap called Copy constructor");
+	log_construction("ClapTrap called Copy constructor");
 }
 
 ClapTrap &ClapTrap::operator=(const ClapTrap &rhs)
 {
 	if (this != &rhs)
 	{
-		this->_name = rhs._name;
-		this->_hit_points = rhs._hit_points;
-		this->_energy_points = rhs._energy_points;
-		this->log("Copy assignment operator called");
+		_name = rhs._name;
+		_hit_points = rhs._hit_points;
+		_energy_points = rhs._energy_points;
+		log_construction("Copy assignment operator called");
 	}
 	return (*this);
 }
 
 ClapTrap::~ClapTrap()
 {
-	std::cout << RED "Destructor called" NC << std::endl;
+	logMessage(BRED, "Destructor called by " + _name);
 }

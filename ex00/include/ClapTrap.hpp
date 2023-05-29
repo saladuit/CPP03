@@ -33,9 +33,11 @@ class ClapTrap
 	unsigned int _hit_points;
 	unsigned int _energy_points;
 	const int _attack_damage;
-	void log(std::string message) const;
+	void log_construction(std::string message) const;
 	void log_no_energy(std::string action) const;
 	void log_is_dead(std::string action) const;
+	bool canPerformAction(const std::string &action) const;
+	void logMessage(const std::string &color, const std::string &message) const;
 };
 
 #endif
