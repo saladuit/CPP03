@@ -12,28 +12,28 @@
 
 /* **************************Orthodox_Canonical_Form************************* */
 
-#include "ScavTrap.hpp"
+#include "FragTrap.hpp"
 #include "ClapTrap.hpp"
 #include "Color.hpp"
 
-ScavTrap::ScavTrap()
+FragTrap::FragTrap()
 	: ClapTrap("SC4V-TP", HIT_POINTS, ENERGY_POINTS, ATTACK_DAMAGE)
 {
-	log_construction("ScavpTrap called default constructor");
+	log_construction("FragTrap called default constructor");
 }
 
-ScavTrap::ScavTrap(const std::string name)
+FragTrap::FragTrap(const std::string name)
 	: ClapTrap(name, HIT_POINTS, ENERGY_POINTS, ATTACK_DAMAGE)
 {
-	log_construction("ScavpTrap called named constructor");
+	log_construction("FragTrap called named constructor");
 }
 
-void ScavTrap::guardGate()
+void FragTrap::highFivesGuys()
 {
-	logMessage(CYN, "ScavTrap is now in Gate keeper mode");
+	logMessage(CYN, "FragTrap is now in Gate keeper mode");
 }
 
-ScavTrap::~ScavTrap()
+FragTrap::~FragTrap()
 {
 	log_is_deconstructed();
 }

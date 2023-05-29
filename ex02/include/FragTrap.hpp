@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                    .--.  _                 */
-/*   ScavTrap.hpp                                    |o_o || |                */
+/*   FragTrap.hpp                                    |o_o || |                */
 /*                                                   |:_/ || |_ _   ___  __   */
 /*   By: safoh <safoh@student.codam.nl>             //   \ \ __| | | \ \/ /   */
 /*                                                 (|     | )|_| |_| |>  <    */
-/*   Created: 2023/05/29 09:29:21 by safoh        /'\_   _/`\__|\__,_/_/\_\   */
-/*   Updated: 2023/05/29 09:29:21 by safoh        \___)=(___/                 */
+/*   Created: 2023/05/29 11:16:15 by safoh        /'\_   _/`\__|\__,_/_/\_\   */
+/*   Updated: 2023/05/29 11:16:15 by safoh        \___)=(___/                 */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SCAVTRAP_HPP
-#define SCAVTRAP_HPP
+#ifndef FRAGTRAP_HPP
+#define FRAGTRAP_HPP
 
 #include "ClapTrap.hpp"
 
@@ -38,16 +38,16 @@
 */
 
 #define HIT_POINTS 100
-#define ENERGY_POINTS 50
-#define ATTACK_DAMAGE 20
+#define ENERGY_POINTS 100
+#define ATTACK_DAMAGE 30
 
-class ScavTrap : public ClapTrap
+class FragTrap : public ClapTrap
 {
   public:
-	ScavTrap();
-	ScavTrap(const std::string name);
-	~ScavTrap();
-	void guardGate();
+	FragTrap();
+	FragTrap(const std::string name);
+	~FragTrap();
+	void highFivesGuys(void);
 };
 
 #endif
