@@ -10,16 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ScavTrap.hpp"
+#include "FragTrap.hpp"
 #include <ClapTrap.hpp>
 #include <Color.hpp>
 
 void test_default_constructor(void)
 {
-	ScavTrap scav_trap;
+	FragTrap scav_trap;
 
 	scav_trap.attack("Mees");
-	scav_trap.guardGate();
+	scav_trap.highFivesGuys();
 	scav_trap.beRepaired(1);
 	scav_trap.takeDamage(50);
 	scav_trap.takeDamage(50);
@@ -27,9 +27,9 @@ void test_default_constructor(void)
 
 void test_constructors(void)
 {
-	ScavTrap saladin("Saladin");
-	ScavTrap saladin_copy(saladin);
-	ScavTrap default_scavtrap;
+	FragTrap saladin("Saladin");
+	FragTrap saladin_copy(saladin);
+	FragTrap default_scavtrap;
 	default_scavtrap = saladin;
 }
 

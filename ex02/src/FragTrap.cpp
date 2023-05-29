@@ -13,11 +13,10 @@
 /* **************************Orthodox_Canonical_Form************************* */
 
 #include "FragTrap.hpp"
-#include "ClapTrap.hpp"
 #include "Color.hpp"
 
 FragTrap::FragTrap()
-	: ClapTrap("SC4V-TP", HIT_POINTS, ENERGY_POINTS, ATTACK_DAMAGE)
+	: ClapTrap("FR4G-TP", HIT_POINTS, ENERGY_POINTS, ATTACK_DAMAGE)
 {
 	log_construction("FragTrap called default constructor");
 }
@@ -30,7 +29,7 @@ FragTrap::FragTrap(const std::string name)
 
 void FragTrap::highFivesGuys()
 {
-	logMessage(CYN, "FragTrap is now in Gate keeper mode");
+	logMessage(CYN, "FragTrap requests a high five from the guys");
 }
 
 FragTrap::~FragTrap()
